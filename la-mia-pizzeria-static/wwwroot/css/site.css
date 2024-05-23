@@ -1,0 +1,66 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*.p-1 {
+    padding: 5px;
+}*/
+
+/*.p-2 {
+    padding: 10px;
+}*/
+
+/*.text-center {
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-4 {
+    flex-basis: calc((100% / 12) * 4);
+    padding: 5px;
+}
+
+.col-6 {
+    flex-basis: calc((100% / 12) * 6);
+}*/
+
+.card-pizza {
+    border: 1px solid black;
+    height: 100%;
+    /*border-radius: 22px;*/
+}
+
+img {
+    width: 240px;
+    height: 150px;
+}

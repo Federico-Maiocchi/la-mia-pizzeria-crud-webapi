@@ -1,0 +1,68 @@
+﻿@model PizzaFormModel
+
+@{
+    ViewData["Title"] = "Modifica pizza";
+    Layout = "_CustomLayout";
+
+}
+
+<section class="update-pizza">
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="py-4">Aggiungi nuova pizza</h2>
+            <form asp-controller="Pizza" asp-action="Update" asp-router-id="@Model.Pizza.Id" method="post">
+                <div class="form-group col-6">
+                    <label for="name">Nome</label>
+                    <input asp-for="Pizza.Name" type="text" class="form-control" id="name" placeholder="Inserisci nome della pizza">
+                    <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6">
+                    <label for="price">Descrizione</label>
+                    <textarea asp-for="Pizza.Description" type="text" class="form-control" id="price" placeholder="Inserisci prezzo della pizza"> </textarea>
+                    <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6">
+                    <label for="price">Prezzo</label>
+                    <input asp-for="Pizza.Price" type="text" class="form-control" id="price" placeholder="Inserisci prezzo della pizza">
+                    <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Pizza.Image">Inserisci immagine</label>
+                    <input asp-for="Pizza.Image" class="form-control" id="description" rows="3">
+                </div>
+                    <div class="form-group">
+                        <label for="Pizza.Image">Categoria pizze:</label>
+                        <select asp-for="Pizza.CategoryId" class="form-select" aria-label="Default select example">
+                            <option value=""></option>
+                            @foreach (Category category in Model.Categories)
+                            {
+                                @if (Model.Pizza.CategoryId == category.Id)
+                                {
+                                    <option value="@category.Id" selected>@category.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    @* Ingredienti pizza *@
+                    <div class="mb-3">
+                        <strong>Ingredienti:</strong>
+                        <select asp-for="SelectedIngredients"
+                                multiple="multiple"
+                                size="10"
+                                class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                                asp-items="@Model.Ingredients">
+                        </select>
+                    </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</section>

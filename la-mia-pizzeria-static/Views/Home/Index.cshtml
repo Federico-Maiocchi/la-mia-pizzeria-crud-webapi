@@ -1,0 +1,64 @@
+﻿@using la_mia_pizzeria_static.Models;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_CustomLayout"; 
+}
+
+@* Home - index *@
+
+<div class="text-center">
+   @*  <h1 class="display-4">Pizzeria ristorante</h1> *@
+    @* <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+    
+    <h1 class="display-4 p-1">Home page</h1>
+    
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            Bevenuto utente @UserManager.GetUserName(User)!
+        </div>
+    }
+    else
+    {
+        <div>
+            registrati
+        </div>
+    }
+
+
+
+    
+
+    @* <div class="container pt-1">
+        <div class="row justify-content-center">
+
+            
+
+            @model List<Pizza>
+            @foreach (Pizza itemPizza in Model)
+            {
+                <div class="col-4  p-2">
+
+                    <div class="card card-pizza" style="width: 18rem;">
+                        <img src="@Url.Content(itemPizza.Image)" class="card-img-top" alt="@itemPizza.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@itemPizza.Name</h5>
+                            <p class="card-text">@itemPizza.Description</p>
+                            <p class="card-text">Prezzo: @itemPizza.Price &euro;</p>
+                            <a href="@Url.Action("Show", new {id = itemPizza.Id} )" class="btn btn-primary">Guarda</a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div> *@
+
+</div>
+

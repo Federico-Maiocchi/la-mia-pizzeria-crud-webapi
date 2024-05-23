@@ -1,0 +1,86 @@
+﻿@using la_mia_pizzeria_static.Models;
+@using Microsoft.AspNetCore.Mvc;
+@model List<Pizza>
+
+@{
+    ViewData["Title"] = "Lista pizze";
+    Layout = "_CustomLayout";
+
+}
+
+
+
+@* Pizza - index *@
+
+<div class="text-center">
+    @*  <h1 class="display-4">Pizzeria ristorante</h1> *@
+    @* <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+
+    <h1 class="display-4 p-1">Pizzeria ristorante</h1>
+    <h2 class="text-center">Lista di pizze</h2>
+
+    @* <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Create">
+        <button class="btn btn-primary">Aggiungi pizza</button>
+    </a> *@
+
+    @if (User.IsInRole("ADMIN"))
+    {
+        <a class="nav-link text-dark" href="@Url.Action("Create", "Pizza")">
+            <button class="btn btn-primary">Aggiungi pizza</button>
+        </a>
+    }
+
+
+    
+    
+    <div class="container pt-1">
+        <div class="row justify-content-center">
+
+            @if (Model == null || !Model.Any())
+            {
+                <p>Non ci sono pizze nella lista </p>
+            }
+            else
+            {
+                @foreach (Pizza itemPizza in Model)
+                {
+                    <div class="col-4  p-2">
+
+                        <div class="card card-pizza" style="width: 18rem;">
+                            <img src="@Url.Content(itemPizza.Image)" class="card-img-top" alt="@itemPizza.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@itemPizza.Name</h5>
+                                <p class="card-text"><strong>categoria:</strong> @itemPizza.GetDisplayCategory() </p>
+                                <p class="card-text"><strong>descrizione:</strong> @itemPizza.Description</p>
+                                <p class="card-text"><strong>prezzo:</strong> @itemPizza.Price &euro;</p>
+                                <a href="@Url.Action("Show", new {id = itemPizza.Id} )" class="btn btn-primary">Guarda</a>
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <a href="@Url.Action("Update", new {id = itemPizza.Id} )" class="btn btn-primary">Modifica</a>
+                                    <form aps-controller="Pizza" asp-action="Delete" asp-route-id="@itemPizza.Id" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Cancella
+                                        </button>
+                                    </form>
+                                }
+                                @* <a href="@Url.Action("Update", new {id = itemPizza.Id} )" class="btn btn-primary">Modifica</a>
+                                <form aps-controller="Pizza" asp-action="Delete" asp-route-id="@itemPizza.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Cancella
+                                    </button> 
+                                </form> *@
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+           
+        </div>
+    </div>
+
+</div>
+
+
