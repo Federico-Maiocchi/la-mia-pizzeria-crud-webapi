@@ -52,12 +52,20 @@
                     @* Ingredienti pizza *@
                     <div class="mb-3">
                         <strong>Ingredienti:</strong>
-                        <select asp-for="SelectedIngredients"
+                        @* <select asp-for="SelectedIngredients"
                                 multiple="multiple"
                                 size="10"
                                 class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
                                 asp-items="@Model.Ingredients">
-                        </select>
+                        </select> *@
+                        @for (int i = 0; i < Model.Ingredients.Count; i++)
+                        {
+                            <div>
+                                <input type="checkbox" name="SelectedIngredients" value="@Model.Ingredients[i].Value"
+                                @(Model.SelectedIngredients.Contains(Model.Ingredients[i].Value) ? "checked" : "") />
+                                @Model.Ingredients[i].Text
+                            </div>
+                        }
                     </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

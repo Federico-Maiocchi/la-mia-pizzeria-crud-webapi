@@ -29,15 +29,23 @@ namespace la_mia_pizzeria_static.Models
         public void CreateIngredients()
         {
             this.Ingredients = new List<SelectListItem>();
+            this.SelectedIngredients = new List<string>();
+
             var ingredientsFromDb = PizzaManager.GetAllIngredients();
             foreach (var ingredient in ingredientsFromDb)
             {
+                bool isSelected = this.Pizza.Ingredients?.Any(i => i.Id == ingredient.Id) == true;
                 this.Ingredients.Add(new SelectListItem()
                 {
                     Text = ingredient.Name,
                     Value = ingredient.Id.ToString(),
-                    Selected = this.Pizza.Ingredients?.Any(i => i.Id == ingredient.Id) == true,
+                    Selected = isSelected
                 });
+
+                if(isSelected)
+                {
+                    this.SelectedIngredients.Add(ingredient.Id.ToString());
+                }
             }
         }
     }

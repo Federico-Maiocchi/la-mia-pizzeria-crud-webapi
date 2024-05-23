@@ -46,6 +46,7 @@ namespace la_mia_pizzeria_static.Controllers
             PizzaFormModel model = new PizzaFormModel();
             model.Pizza = new Pizza();
             model.Categories = PizzaManager.GetAllCategories();
+            //model.SelectedIngredients = new List<string>();
             model.CreateIngredients();
            
             return View(model);
@@ -117,6 +118,7 @@ namespace la_mia_pizzeria_static.Controllers
                 PizzaFormModel model = new PizzaFormModel();
                 model.Pizza = pizzaToEdit;
                 model.Categories = PizzaManager.GetAllCategories();
+                
                 model.CreateIngredients();
 
                 return View(model);
