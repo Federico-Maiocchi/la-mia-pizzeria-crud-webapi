@@ -62,6 +62,13 @@ namespace la_mia_pizzeria_static.Data
             
         }
 
+        public static Pizza GetPizzaByName(string name)
+        {
+            using PizzaContext db = new PizzaContext();
+
+            return db.Pizze.FirstOrDefault(p => p.Name == name);
+        }
+
         public static Category GetCategoryById(int id)
         {
             using PizzaContext db = new PizzaContext();
@@ -129,6 +136,31 @@ namespace la_mia_pizzeria_static.Data
             db.SaveChanges();
 
             return true;
+        }
+
+        //Cancella pizza
+        public static bool DeletePizza(int id)
+        {
+            try
+            {
+                var idPizzaDelete = GetPizzaById(id, false);
+                if (idPizzaDelete == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    using PizzaContext db = new PizzaContext();
+                    db.Remove(idPizzaDelete);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
         public static void Seed()

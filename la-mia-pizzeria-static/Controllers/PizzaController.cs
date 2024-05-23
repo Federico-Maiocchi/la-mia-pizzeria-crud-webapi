@@ -178,23 +178,19 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Delete(int id)
         {
-            using (PizzaContext db = new PizzaContext())
+            
+            var pizzaToDelete = PizzaManager.DeletePizza(id);
+
+            if (pizzaToDelete != null)
             {
-                Pizza pizzaToDelete = PizzaManager.GetPizzaById(id);
-
-                if (pizzaToDelete != null)
-                {
-                    db.Pizze.Remove(pizzaToDelete);
-
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound();
-                }
+                
+                return RedirectToAction("Index");
             }
+            else
+            {
+                return NotFound();
+            }
+            
             
         } 
     }

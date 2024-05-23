@@ -15,8 +15,7 @@ namespace la_mia_pizzeria_static.Data
 
         //Ingredienti
         public DbSet<Ingredient> Ingredienti { get; set; }
-
-
+        public object PizzaContexts { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
