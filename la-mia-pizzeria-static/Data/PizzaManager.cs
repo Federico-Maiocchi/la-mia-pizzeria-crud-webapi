@@ -69,6 +69,17 @@ namespace la_mia_pizzeria_static.Data
             return db.Pizze.FirstOrDefault(p => p.Name == name);
         }
 
+        public static List<Pizza> GetPizzasByName(string name)
+        {
+            using PizzaContext db = new PizzaContext();
+
+
+            //return db.Pizze.Where(p => p.Name == name).ToList();
+
+            return db.Pizze.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+        }
+
+
         public static Category GetCategoryById(int id)
         {
             using PizzaContext db = new PizzaContext();

@@ -10,28 +10,29 @@ namespace la_mia_pizzeria_static.Controllers
     public class PizzaWebApiController : ControllerBase
     {
         //ricerca di tutte le pizze
-        [HttpGet]
-        public IActionResult GetAllPizzas(string filter)
+        [HttpGet("{filterName?}")]
+        public IActionResult GetAllPizzas(string? filterName = "")
         {
-            //using (PizzaContext db = new PizzaContext())
-            //{
-            //    IQueryable<Pizza> pizzas = db.Pizze;
 
-            //    return Ok(pizzas.ToList());
-            //}
-
-            var allPizzas = PizzaManager.GetAllPizzas();
-            if(allPizzas != null)
+            
+            if (string.IsNullOrWhiteSpace(filterName))
             {
-                
-
-                var allPizzasFilter = allPizzas.Where(p => p.Name.ToLower().Contains(filter.ToLower())).ToList();
-                return Ok(allPizzasFilter);
+                return Ok(PizzaManager.GetAllPizzas());
             }
             else
             {
-                return NotFound();
+                return Ok(PizzaManager.GetPizzasByName(filterName));
             }
+            
+                
+
+            //    var allPizzasFilter = allPizzas.Where(p => p.Name.ToLower().Contains(filter.ToLower())).ToList();
+            //    return Ok(allPizzasFilter);
+            //}
+            //else
+            //{
+            //    return NotFound();
+            //}
             
         }
 
@@ -101,7 +102,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         //cancella pizza
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeletePizza(int id)
         {
             bool pizzaDelete = PizzaManager.DeletePizza(id);
